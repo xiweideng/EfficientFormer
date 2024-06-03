@@ -17,9 +17,9 @@ from mmseg.apis import multi_gpu_test, single_gpu_test
 from mmseg.datasets import build_dataloader, build_dataset
 from mmseg.models import build_segmentor
 
-import backbone
-import backbonev2
-from align_resize import AlignResize
+import segmentation.backbone
+import segmentation.backbonev2
+from segmentation.align_resize import AlignResize
 
 
 def parse_args():

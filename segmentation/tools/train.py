@@ -18,9 +18,9 @@ from mmseg.models import build_segmentor
 from mmseg.utils import collect_env, get_root_logger
 
 
-import backbone
-import backbonev2
-from align_resize import AlignResize
+import segmentation.backbone
+import segmentation.backbonev2
+from segmentation.align_resize import AlignResize
 
 
 def parse_args():

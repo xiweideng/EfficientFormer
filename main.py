@@ -3,7 +3,6 @@ import datetime
 import numpy as np
 import time
 import torch
-import torch.backends.cudnn as cudnn
 import json
 from pathlib import Path
 
@@ -191,10 +190,10 @@ def main(args):
     # fix the seed for reproducibility
     seed = args.seed + utils.get_rank()
     torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
     np.random.seed(seed)
-
-    cudnn.benchmark = True
-
+    torch.backends.cudnn.benchmark = True
+    torch.backends.cudnn.deterministic = True
     dataset_train, args.nb_classes = build_dataset(is_train=True, args=args)
     dataset_val, _ = build_dataset(is_train=False, args=args)
 

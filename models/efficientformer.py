@@ -8,7 +8,7 @@ import torch.nn as nn
 
 from typing import Dict
 import itertools
-
+from mmcv.runner import _load_checkpoint
 from timm.data import IMAGENET_DEFAULT_MEAN, IMAGENET_DEFAULT_STD
 from timm.models.layers import DropPath, trunc_normal_
 from timm.models.registry import register_model

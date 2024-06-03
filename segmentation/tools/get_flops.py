@@ -5,10 +5,11 @@ from mmcv import Config
 from mmcv.cnn import get_model_complexity_info
 
 from mmseg.models import build_segmentor
-import sys 
-sys.path.append("..") 
+import sys
+
+sys.path.append("..")
 import xformer
-import pvt
+
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Train a segmentor')
@@ -24,13 +25,12 @@ def parse_args():
 
 
 def main():
-
     args = parse_args()
 
     if len(args.shape) == 1:
         input_shape = (3, args.shape[0], args.shape[0])
     elif len(args.shape) == 2:
-        input_shape = (3, ) + tuple(args.shape)
+        input_shape = (3,) + tuple(args.shape)
     else:
         raise ValueError('invalid input shape')
 

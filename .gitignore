@@ -1,6 +1,7 @@
 efficientvit_l3_300d/
 __pycache__
 *.pyc
+.idea/
 .vscode
 dist_test.sh
 dist_train.sh
