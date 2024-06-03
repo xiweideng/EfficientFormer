@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 MODEL="efficientformer_l1"
-nGPUs=2
-export CUDA_VISIBLE_DEVICES="0,1"
-OUTPUT_DIR="efficientformer_test"
+nGPUs=1
+export CUDA_VISIBLE_DEVICES="0"
+OUTPUT_DIR="efficientformer_l1_2d"
 DATASET="IMNET"
 DATA_PATH="/data1/datasets/imagenet"
 CHECKPOINT=$OUTPUT_DIR/checkpoint.pth
