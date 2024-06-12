@@ -54,7 +54,9 @@ def get_args_parser():
     parser.add_argument('--weight-decay', type=float, default=0.025,
                         help='weight decay (default: 0.025)')
     # Learning rate schedule parameters
+    # TODO:adjust lr_scheduler
     parser.add_argument('--sched', default='cosine', type=str, metavar='SCHEDULER',
+                        choices=['cosine', 'tanh', 'step', 'multistep', 'plateau', 'poly'],
                         help='LR scheduler (default: "cosine"')
     parser.add_argument('--lr', type=float, default=1e-3, metavar='LR',
                         help='learning rate (default: 2e-3)')
@@ -125,6 +127,7 @@ def get_args_parser():
                         help='Name of teacher model to train (default: "regnety_160"')
     parser.add_argument('--teacher-path', type=str,
                         default='https://dl.fbaipublicfiles.com/deit/regnety_160-a5fe301d.pth')
+    # TODO:adjust distillation strategy
     parser.add_argument('--distillation-type', default='hard',
                         choices=['none', 'soft', 'hard'], type=str, help="")
     parser.add_argument('--distillation-alpha',
@@ -377,7 +380,7 @@ def main(args):
 
         lr_scheduler.step(epoch)
         if args.output_dir:
-            checkpoint_paths = [output_dir / 'checkpoint.pth']
+            checkpoint_paths = [output_dir / f'{args.model}.pth']
             for checkpoint_path in checkpoint_paths:
                 utils.save_on_master({
                     'model': model_without_ddp.state_dict(),

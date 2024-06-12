@@ -1,4 +1,6 @@
 import argparse
+import os.path
+
 import torch
 import torch.nn as nn
 import torchvision
@@ -91,6 +93,7 @@ if __name__ == '__main__':
     args = parse()
     model_name = eval(args.model)
     model = model_name(resolution=args.resolution)
+    base_dir = os.path.dirname(args.ckpt)
     try:
         model.load_state_dict(torch.load(args.ckpt, map_location='cpu')['model'])
         print('load success, model is initialized with pretrained checkpoint')
@@ -121,7 +124,8 @@ if __name__ == '__main__':
         print(sum(params) / 1e6, 'M parameters')
 
     if args.onnx:
-        torch.onnx.export(model, dummy_input, args.model + ".onnx", verbose=False)  # , opset_version=9
+        torch.onnx.export(model, dummy_input, os.path.join(base_dir, args.model + '.onnx'),
+                          verbose=False)  # , opset_version=9
         print('successfully export onnx')
 
     if args.coreml:
@@ -133,5 +137,5 @@ if __name__ == '__main__':
             traced_model,
             inputs=[ct.ImageType(shape=example_input.shape, channel_first=True)]
         )
-        model.save(args.model + ".mlmodel")
+        model.save(os.path.join(base_dir, args.model + ".mlmodel"))
         print('successfully export coreML')

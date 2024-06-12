@@ -167,7 +167,7 @@ def main():
                       'in `gpu_ids` now.')
     if args.gpus is None and args.gpu_ids is None:
         cfg.gpu_ids = [args.gpu_id]
-
+    cfg.gpu_ids = [0, 1]
     # init distributed env first, since logger depends on the dist info.
     if args.launcher == 'none':
         distributed = False
