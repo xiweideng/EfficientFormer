@@ -179,7 +179,8 @@ class LGQuery(torch.nn.Module):
         super().__init__()
         self.resolution1 = resolution1
         self.resolution2 = resolution2
-        self.pool = nn.AvgPool2d(1, 2, 0)
+        # self.pool = nn.AvgPool2d(1, 2, 0)
+        # self.maxpool = nn.MaxPool2d(2, 2)
         self.local = nn.Sequential(nn.Conv2d(in_dim, in_dim, kernel_size=3, stride=2, padding=1, groups=in_dim),
                                    )
         self.proj = nn.Sequential(nn.Conv2d(in_dim, out_dim, 1),
@@ -187,8 +188,9 @@ class LGQuery(torch.nn.Module):
 
     def forward(self, x):
         local_q = self.local(x)
-        pool_q = self.pool(x)
-        q = local_q + pool_q
+        # pool_q = self.pool(x)
+        # max_q = self.maxpool(x)
+        q = local_q  # + pool_q + max_q
         q = self.proj(q)
         return q
 

@@ -71,9 +71,9 @@ def get_args_parser():
     parser.add_argument('--min-lr', type=float, default=1e-5, metavar='LR',
                         help='lower lr bound for cyclic schedulers that hit 0 (1e-5)')
 
-    parser.add_argument('--decay-epochs', type=float, default=30, metavar='N',
+    parser.add_argument('--decay-epochs', type=float, default=4, metavar='N',
                         help='epoch interval to decay LR')
-    parser.add_argument('--warmup-epochs', type=int, default=5, metavar='N',
+    parser.add_argument('--warmup-epochs', type=int, default=2, metavar='N',
                         help='epochs to warmup LR, if scheduler supports')
     parser.add_argument('--cooldown-epochs', type=int, default=10, metavar='N',
                         help='epochs to cooldown LR at min_lr, after cyclic schedule ends')
