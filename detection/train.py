@@ -52,6 +52,7 @@ def parse_args():
              '(only applicable to non-distributed training)')
     group_gpus.add_argument(
         '--gpu-ids',
+        default=range(2,4),
         type=int,
         nargs='+',
         help='(Deprecated, please use --gpu-id) ids of gpus to use '
@@ -59,7 +60,7 @@ def parse_args():
     group_gpus.add_argument(
         '--gpu-id',
         type=int,
-        default=0,
+        default=3,
         help='id of gpu to use '
              '(only applicable to non-distributed training)')
     parser.add_argument('--seed', type=int, default=None, help='random seed')
@@ -167,7 +168,7 @@ def main():
                       'in `gpu_ids` now.')
     if args.gpus is None and args.gpu_ids is None:
         cfg.gpu_ids = [args.gpu_id]
-    cfg.gpu_ids = [0, 1]
+
     # init distributed env first, since logger depends on the dist info.
     if args.launcher == 'none':
         distributed = False
@@ -176,7 +177,7 @@ def main():
         init_dist(args.launcher, **cfg.dist_params)
         # re-set gpu_ids with distributed training mode
         _, world_size = get_dist_info()
-        cfg.gpu_ids = range(world_size)
+        cfg.gpu_ids = range(2,4)
 
     # create work_dir
     mmcv.mkdir_or_exist(osp.abspath(cfg.work_dir))
